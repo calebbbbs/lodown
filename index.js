@@ -83,8 +83,18 @@ module.exports.typeOf = typeOf;
  * will return the first element of the array. If all checks are passed, the .slice() method will return a 
  * new array of the elements equal to number, beginning at index 0.  
  * 
+ * //index vs. length\\
  * 
+ * Let's play a game that will let us know the difference in length vs index of an array.
  * 
+ * let numb = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+ * 
+ * let dontGoUnder = function(array, number){
+ *  return first(array, number); 
+ * }
+ *
+ * console.log(dontGoUnder(numb, 8)); [0, 1, 2, 3, 4, 5, 6, 7] - Index
+ * console.log(dontGoUnder(numb, 9)); [0, 1, 2, 3, 4, 5, 6, 7, 8] - Length 
  * */
  function first(array, number) {
     if ((!Array.isArray(array)) || (number < 0)) { 
@@ -322,13 +332,9 @@ module.exports.unique = unique;
  *  //filter the names with less than 5 letters
  * 
  *   let fiveLetters = function(array) {
- *       lessThan = [];
- *       filter(array, function(val){
- *           if(val.length < 5){
- *               lessThan.push(val);
- *          }
+ *       return filter(array, function(val){
+ *           return val.length < 5;
  *      });
- *      return lessThan; 
  *  }
  *  console.log(fiveLetters(age)); // -> ["Iggy", "Bob"]
  * 
@@ -360,16 +366,24 @@ module.exports.filter = filter;
  * returned outside of the for loop and if statement. 
  * 
  * Usage:
- * //workingTheDoor\\
+ *  We are looking for a control group to base out answers off of. We have a system in 
+ *  that will look for unbiased persons for our group. If all the responses are false or the person 
+ *  will be viewed as unbiased. If any responses are rejected, the person will be disregarded 
+ *  for  the position of being the unbiased control.
  * 
- * Nobody in unless they're old enough to drink. 21+.
+ * let response1 = [true, false, true, true, false];
+ * let response2 = [false, false, false, false, false];
  * 
- * A group of friends all come up at the same time and you check all of their ids
+ * let unbiased = function(array){
+ *   return reject(array, function(val, i,col){
+ *      return val === false;
+ *   })
+ * }
+ *
+ * console.log(unbiased(response1));-> [ true, true, true ] three responses rejected
+ * console.log(unbiased(response2)); // -> []  no responsed rejected
  * 
- * let checkTheID = function(number){
-     var swipe;
-     reje
- }
+ * 
  * 
  */ 
 
@@ -400,7 +414,16 @@ module.exports.reject = reject;
  * arrays being pushed into the output array. Order asked for the passed array to be first,
  * followed by the failed array. 
  * 
- * 
+ * Usage:
+ * let chars = ["b", 7, "T", 8, 9, "r"];
+ *    
+ *   let separateTheCases = function(array){
+ *      return partition(array, function(val, i, array){
+ *          return typeof val === "string";
+ *      })
+ *  }
+ *    
+ * console.log(separateTheCases(chars)); // ->[ [ 'b', 'T', 'r' ], [ 7, 8, 9 ] ]
  * 
  * 
  */
@@ -530,15 +553,11 @@ module.exports.pluck = pluck;
  * let friendsAges = [19, 20, 19, 19, 18, 20, 19]
  *
  * let doorGuy = function(array){
- *  var gettingIn = true;
  *  every(array, function(val){
- *      if (val < 19){
- *          gettingIn = false;
- *      }
+ *      return val < 19;
  *  })
- *   return gettingIn;
  * }
- *
+ *  
  * console.log(doorGuy(friendsAges)); // -> false is printed, they didn't get passed the doorguy.
  */
 function every(collection, funct){
@@ -576,7 +595,19 @@ module.exports.every = every;
  * @return: The return is either true or false. The variable someSome is set to false, and will be reassigned
  * to true if at least one element or property passes the func test. 
  * 
+ * Usage:
  * 
+ * Test to see if some of these numbers are some odd numbers in the group.
+ * 
+ * let numbers = [2, 4, 6, 8, 9];
+ * 
+ * let oddNumbers = function(array){
+ *   return some(array, function(val, i, col){
+ *    return val % 2 !== 0;
+ *   })
+ *  }
+ *
+ * console.log(oddNumbers(numbers)); // -> True is printed because 9 is odd.
  */ 
 function some(collection, func){
   var someSome = false;
