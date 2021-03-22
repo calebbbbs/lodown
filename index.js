@@ -234,6 +234,20 @@ module.exports.contains = contains;
  * @param {Array or Object} collection: The collection over which to iterate.
  * @param {Function} action: The Function to be applied to each value in the 
  * collection
+ * 
+ * Usage: 
+ * Capitalize each word
+ * let arr = ["i", "want", "to", "seem", "professional"];
+ * 
+ *   let capitalized = function(array){
+ *       let capital = [];
+ *       each(array, function(val, i, col){
+ *           capital.push(val[0].toUpperCase() + val.slice(1))
+ *       })
+ *       return capital;
+ *   }  
+ *
+ * console.log(capitalized(arr));
  */
 function each(collection, func) {
     if(Array.isArray(collection)) {
@@ -268,10 +282,10 @@ module.exports.each = each;
  * let ages = [24, 21, 33, 24, 25, 21, 21, 31, 33, 25, 25, 24, 31, 21];
  * 
  * let agesAtParty = function(list){
- *     return unique(list); 
+ *     return unique(list).sort(); 
  *   }
  *
- * console.log(agesAtParty(ages)); // -> [24, 23, 22, 26, 21, 33, 25, 31]
+ * console.log(agesAtParty(ages)); // -> [ 21, 24, 25, 31, 33 ]
  */
  function unique(array){
     var pushed = [];
@@ -345,6 +359,18 @@ module.exports.filter = filter;
  * is perfomed on <array>. This array was created before the for loop and 
  * returned outside of the for loop and if statement. 
  * 
+ * Usage:
+ * //workingTheDoor\\
+ * 
+ * Nobody in unless they're old enough to drink. 21+.
+ * 
+ * A group of friends all come up at the same time and you check all of their ids
+ * 
+ * let checkTheID = function(number){
+     var swipe;
+     reje
+ }
+ * 
  */ 
 
 function reject(array, func){
@@ -373,6 +399,8 @@ module.exports.reject = reject;
  * @return {array}: The return is an array of arrays. Having both the failed and passed
  * arrays being pushed into the output array. Order asked for the passed array to be first,
  * followed by the failed array. 
+ * 
+ * 
  * 
  * 
  */
@@ -410,6 +438,28 @@ module.exports.partition = partition;
  * collection, and the passing results are pushed into the empty array created to hold
  * and return the results. The return is done outside of the each function call. 
  * 
+ * Usage:
+ * 
+ * //positive or negative?\\
+ * 
+ * You're working on a science experiment and numbers contains the values returned from when you 
+ * conducted your experiment. Negative intergers are what we need, so return a new array with only
+ * negative numbers.
+ * 
+ * let numbers = [1, -5, -6, 3, 7, -9, 2, -3];
+ * 
+ * use map to give an array of only negative numbers
+ * 
+ * let negativeNumbers = function(array){
+ *      var returned = [];
+ *      map(array, function(val, i, col){
+ *          if(val < 0){
+ *              returned.push(val);
+ *          }
+ *      })
+ *      return returned.sort();   
+ * }
+ * console.log(negativeNumbers(numbers)); // -> [ -3, -5, -6, -9 ] in ascending order thanks to .sort().
  * 
  */
 function map(collection, func){
@@ -470,6 +520,26 @@ module.exports.pluck = pluck;
  * variable everyEvery. Initialized to be true, everyEvery will be true unless the test produces
  * a failed result, thus reassgning everyEvery to false, and having the return be false. 
  * 
+ * 
+ * Usage:
+ * 
+ * //Old enough for the club?\\
+ * 
+ * A group of friends want to go to a club, although not everyone is old enough. Let's see what happens.
+ * 
+ * let friendsAges = [19, 20, 19, 19, 18, 20, 19]
+ *
+ * let doorGuy = function(array){
+ *  var gettingIn = true;
+ *  every(array, function(val){
+ *      if (val < 19){
+ *          gettingIn = false;
+ *      }
+ *  })
+ *   return gettingIn;
+ * }
+ *
+ * console.log(doorGuy(friendsAges)); // -> false is printed, they didn't get passed the doorguy.
  */
 function every(collection, funct){
     var everyEvery = true;
